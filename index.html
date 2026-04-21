@@ -263,21 +263,53 @@ input[type=range]{width:100%;accent-color:var(--hero);display:block;cursor:point
   .form-grid{grid-template-columns:1fr;}
   .main-content{padding:16px;}
 
-  /* Mobile: sidebar come accordion */
-  .sidebar-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--carta);border-bottom:1px solid var(--line);cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);}
-  .sidebar-toggle .arrow{transition:transform .2s;font-size:14px;}
+  /* — Toggle accordion — */
+  .sidebar-toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--carta);border-bottom:1px solid var(--line);cursor:pointer;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);}
+  .sidebar-toggle .arrow{transition:transform .2s;font-size:12px;}
   .sidebar-toggle.open .arrow{transform:rotate(180deg);}
-  .sidebar-inner{display:none;}
-  .sidebar-inner.open{display:block;}
 
-  /* Modal mobile full-screen */
+  /* — Filtri chiusi di default, max 38% schermo quando aperti — */
+  .sidebar-inner{display:none;}
+  .sidebar-inner.open{display:block;max-height:38vh;overflow-y:auto;border-bottom:2px solid var(--line);}
+
+  /* — Sezioni interne compatte — */
+  .sidebar-inner.open .sb-sec{padding:6px 12px;border-bottom:1px solid var(--line);}
+  .sidebar-inner.open .sb-sec:last-child{border-bottom:none;}
+  .sidebar-inner.open .sb-head{margin-bottom:3px;}
+  .sidebar-inner.open .sb-title{font-size:8px;letter-spacing:2px;}
+  .sidebar-inner.open .sb-btn{font-size:8px;}
+
+  /* — Categorie: chip in riga orizzontale scorrevole — */
+  .sidebar-inner.open .cat-list{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:5px;padding:3px 0 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .sidebar-inner.open .cat-list::-webkit-scrollbar{display:none;}
+  .sidebar-inner.open .cat-item{flex-shrink:0;padding:4px 10px;border:1px solid var(--line);border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
+  .sidebar-inner.open .cat-item.active{background:var(--hero);color:#fff;border-color:var(--hero);}
+  .sidebar-inner.open .cat-dot{display:none;}
+  .sidebar-inner.open .cat-count{display:none;}
+
+  /* — Dropdown filtri su 2 colonne — */
+  .sidebar-inner.open .sb-filters-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;}
+  .sidebar-inner.open .sb-filters-grid .sb-sec{padding:5px 10px;border-bottom:1px solid var(--line);}
+  .sidebar-inner.open .sb-filters-grid .sb-sec:nth-child(odd){border-right:1px solid var(--line);}
+  .sidebar-inner.open .sb-select{width:100%;font-size:11px;padding:3px 18px 3px 0;border:none;background-color:transparent;}
+
+  /* — Slider prezzo compatto — */
+  .sidebar-inner.open .price-row{margin-bottom:3px;font-size:10px;}
+  .sidebar-inner.open .dual-range-wrap{height:24px;}
+
+  /* — Tag e reset compatti — */
+  .sidebar-inner.open .tag-filters{gap:4px;}
+  .sidebar-inner.open .tag-btn{padding:3px 8px;font-size:9px;}
+  .sidebar-inner.open .btn-reset-all{padding:7px;font-size:9px;letter-spacing:1.5px;}
+
+  /* — Modal full-screen da basso — */
   .modal-overlay{padding:0;align-items:flex-end;}
   .modal-card{max-width:100%;max-height:92vh;border-radius:12px 12px 0 0;}
 
-  /* Sort bar mobile */
+  /* — Sort bar — */
   .sort-bar{padding:8px 14px;}
 
-  /* Vino mobile */
+  /* — Card vino — */
   .vino{padding:8px 6px;}
   .vino-nome{font-size:13px;}
   .vino-sub{font-size:11px;}
@@ -332,11 +364,13 @@ input[type=range]{width:100%;accent-color:var(--hero);display:block;cursor:point
       <div class="sb-head"><span class="sb-title">Categoria</span><button class="sb-btn" onclick="setCat('tutti')">Tutte</button></div>
       <ul class="cat-list" id="cat-list"></ul>
     </div>
+    <div class="sb-filters-grid">
     <div class="sb-sec"><div class="sb-title">Paese</div><select class="sb-select" id="f-paese" onchange="applyFilters()"><option value="">Tutti i paesi</option></select></div>
     <div class="sb-sec"><div class="sb-title">Regione</div><select class="sb-select" id="f-regione" onchange="applyFilters()"><option value="">Tutte le regioni</option></select></div>
     <div class="sb-sec"><div class="sb-title">Tipologia</div><select class="sb-select" id="f-tipologia" onchange="applyFilters()"><option value="">Tutte le tipologie</option></select></div>
     <div class="sb-sec"><div class="sb-title">Produttore</div><select class="sb-select" id="f-produttore" onchange="applyFilters()"><option value="">Tutti i produttori</option></select></div>
     <div class="sb-sec"><div class="sb-title">Vitigno</div><select class="sb-select" id="f-vitigno" onchange="applyFilters()"><option value="">Tutti i vitigni</option></select></div>
+    </div>
     <div class="sb-sec">
       <div class="sb-head"><span class="sb-title">Prezzo</span><button class="sb-btn" onclick="resetPrezzo()">Reset</button></div>
       <div class="price-row">
@@ -687,7 +721,7 @@ function updateCatList(){
 }
 
 function setCat(c){fCat=c;applyFilters();}
-function toggleTag(t){fTag=fTag===t?null:t;document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));if(fTag)document.getElementById("tb-"+fTag).classList.add('on');applyFilters();}
+function toggleTag(tag){fTag=fTag===tag?null:tag;document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));if(fTag)document.getElementById("tb-"+fTag).classList.add('on');applyFilters();}
 function updatePrice(){
   var elMin=document.getElementById("price-min");
   var elMax=document.getElementById("price-max");
@@ -721,8 +755,18 @@ function resetPrezzo(){
   pMin=0;pMax=pMaxG;
   updatePriceLabels();updateRangeFill();applyFilters();
 }
-function resetAll(){fCat="tutti";fTag=null;pMin=0;pMax=pMaxG;document.getElementById("price-min").value=0;document.getElementById("price-max").value=pMaxG;updatePriceLabels();["f-paese","f-regione","f-tipologia","f-produttore","f-vitigno"].forEach(id=>document.getElementById(id).value="");document.getElementById("f-ordine").value="default";document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));
-  clearSearch();
+function resetAll(){
+  fCat="tutti";fTag=null;pMin=0;pMax=pMaxG;
+  document.getElementById("price-min").value=0;
+  document.getElementById("price-max").value=pMaxG;
+  updatePriceLabels();updateRangeFill();
+  ["f-paese","f-regione","f-tipologia","f-produttore","f-vitigno"].forEach(id=>document.getElementById(id).value="");
+  document.getElementById("f-ordine").value="default";
+  document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));
+  document.getElementById("search-input").value="";
+  searchQuery="";
+  document.getElementById("search-clear").classList.remove("show");
+  applyFilters();
 }
 
 var searchQuery="";
@@ -923,6 +967,9 @@ function salvaVino(){
   const reg=document.getElementById("f-reg-in").value.trim(),vit=document.getElementById("f-vit-in").value.trim();
   const tipo=document.getElementById("f-tipo-in").value.trim(),ann=document.getElementById("f-ann-in").value.trim();
   const p=document.getElementById("f-prezzo").value.trim(),bicc=document.getElementById("f-bicc").value.trim();
+  const qty=parseInt(document.getElementById("f-qty").value)||0;
+  const dist=document.getElementById("f-dist").value.trim();
+  const pnetto=document.getElementById("f-pnetto").value.trim();
   const tags=["N","B","C"].filter(t=>document.getElementById("t-"+t).checked);
   if(!nome||!cat||!p){toast("Compila nome, categoria e prezzo",true);return;}
   const pFmt=p.includes("€")?"€ "+p.replace(/[€\s]/g,""):"€ "+p;
@@ -993,7 +1040,7 @@ function resetDati(){const d={};Object.keys(VINI_DB_DEFAULT).forEach(cat=>{d[cat
 function exportJSON(){scarica(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),"carta-vini.json");toast("JSON esportato ✓");}
 function exportCSV(){
   var rows=[["Categoria","Nome","Produttore","Paese","Regione","Vitigno","Tipologia","Annata","Prezzo vendita","Calice","Quantità","Distributore","Prezzo acquisto netto","Tag"]];
-  CATS.forEach(function(c){if(!db[c])return;db[c].forEach(function(v){rows.push([c,v.n||"",v.produttore||"",v.paese||"",v.regione||"",v.vitigno||"",v.tipologia||"",v.annata||"",v.p||"",v.b||"",(v.t||[]).join("+")]);});});
+  CATS.forEach(function(c){if(!db[c])return;db[c].forEach(function(v){rows.push([c,v.n||"",v.produttore||"",v.paese||"",v.regione||"",v.vitigno||"",v.tipologia||"",v.annata||"",v.p||"",v.b||"",v.qty!=null?v.qty:"",v.dist||"",v.pnetto||"",(v.t||[]).join("+")]);});});
   var csv=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
   scarica(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"}),"carta-vini.csv");
   toast("CSV esportato ✓");
