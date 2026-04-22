@@ -253,66 +253,43 @@ input[type=range]{width:100%;accent-color:var(--hero);display:block;cursor:point
 .storico-qty.neg{color:#e74c3c;}
 .storico-empty{color:#444;font-size:11px;text-align:center;padding:10px 0;}
 
-.toast{position:fixed;bottom:70px;.toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:9px 24px;font-size:11px;letter-spacing:1px;z-index:999;border-radius:2px;opacity:0;transition:opacity .3s;pointer-events:none;font-weight:700;text-transform:uppercase;}
+.toast{position:fixed;bottom:70px;left:50%;transform:translateX(-50%);background:var(--green);color:#fff;padding:9px 24px;font-size:11px;letter-spacing:1px;z-index:999;border-radius:2px;opacity:0;transition:opacity .3s;pointer-events:none;font-weight:700;text-transform:uppercase;}
 .toast.show{opacity:1;}
 #imp-file{display:none;}
 @media(max-width:800px){
   .page-wrap{flex-direction:column;}
-  .sidebar{width:100%;min-width:unset;position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);}
+  .sidebar{width:100%!important;min-width:unset!important;max-width:100%!important;flex-shrink:0;position:static;height:auto;border-right:none;border-bottom:1px solid var(--line);}
+  .main-content{width:100%!important;min-width:0!important;padding:16px;flex:none;}
   .hero-deco-r,.hero-deco-l{display:none;}
   .form-grid{grid-template-columns:1fr;}
-  .main-content{padding:16px;}
 
-  /* — Toggle accordion — */
-  .sidebar-toggle{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:var(--carta);border-bottom:1px solid var(--line);cursor:pointer;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);}
-  .sidebar-toggle .arrow{transition:transform .2s;font-size:12px;}
+  /* Mobile: sidebar come accordion */
+  .sidebar-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--carta);border-bottom:1px solid var(--line);cursor:pointer;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--grey);}
+  .sidebar-toggle .arrow{transition:transform .2s;font-size:14px;}
   .sidebar-toggle.open .arrow{transform:rotate(180deg);}
-
-  /* — Filtri chiusi di default, max 38% schermo quando aperti — */
   .sidebar-inner{display:none;}
-  .sidebar-inner.open{display:block;max-height:38vh;overflow-y:auto;border-bottom:2px solid var(--line);}
+  .sidebar-inner.open{display:block;}
 
-  /* — Sezioni interne compatte — */
-  .sidebar-inner.open .sb-sec{padding:6px 12px;border-bottom:1px solid var(--line);}
-  .sidebar-inner.open .sb-sec:last-child{border-bottom:none;}
-  .sidebar-inner.open .sb-head{margin-bottom:3px;}
-  .sidebar-inner.open .sb-title{font-size:8px;letter-spacing:2px;}
-  .sidebar-inner.open .sb-btn{font-size:8px;}
-
-  /* — Categorie: chip in riga orizzontale scorrevole — */
-  .sidebar-inner.open .cat-list{display:flex;flex-wrap:nowrap;overflow-x:auto;gap:5px;padding:3px 0 4px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-  .sidebar-inner.open .cat-list::-webkit-scrollbar{display:none;}
-  .sidebar-inner.open .cat-item{flex-shrink:0;padding:4px 10px;border:1px solid var(--line);border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap;}
-  .sidebar-inner.open .cat-item.active{background:var(--hero);color:#fff;border-color:var(--hero);}
-  .sidebar-inner.open .cat-dot{display:none;}
-  .sidebar-inner.open .cat-count{display:none;}
-
-  /* — Dropdown filtri su 2 colonne — */
-  .sidebar-inner.open .sb-filters-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0;}
-  .sidebar-inner.open .sb-filters-grid .sb-sec{padding:5px 10px;border-bottom:1px solid var(--line);}
-  .sidebar-inner.open .sb-filters-grid .sb-sec:nth-child(odd){border-right:1px solid var(--line);}
-  .sidebar-inner.open .sb-select{width:100%;font-size:11px;padding:3px 18px 3px 0;border:none;background-color:transparent;}
-
-  /* — Slider prezzo compatto — */
-  .sidebar-inner.open .price-row{margin-bottom:3px;font-size:10px;}
-  .sidebar-inner.open .dual-range-wrap{height:24px;}
-
-  /* — Tag e reset compatti — */
-  .sidebar-inner.open .tag-filters{gap:4px;}
-  .sidebar-inner.open .tag-btn{padding:3px 8px;font-size:9px;}
-  .sidebar-inner.open .btn-reset-all{padding:7px;font-size:9px;letter-spacing:1.5px;}
-
-  /* — Modal full-screen da basso — */
+  /* Modal mobile full-screen */
   .modal-overlay{padding:0;align-items:flex-end;}
   .modal-card{max-width:100%;max-height:92vh;border-radius:12px 12px 0 0;}
 
-  /* — Sort bar — */
+  /* Sort bar mobile */
   .sort-bar{padding:8px 14px;}
 
-  /* — Card vino — */
+  /* Vino mobile */
   .vino{padding:8px 6px;}
   .vino-nome{font-size:13px;}
   .vino-sub{font-size:11px;}
+
+  /* Step 4 — Filtri sidebar: testi più grandi su mobile */
+  .sb-title{font-size:12px;letter-spacing:2px;}
+  .cat-item{font-size:15px;padding:7px 0;}
+  .sb-select{font-size:15px;padding:10px 28px 10px 0;}
+
+  /* Step 4 — Bottoni categoria: thumb-friendly */
+  .tag-btn{font-size:12px;padding:8px 14px;}
+  .btn-reset-all{padding:14px;font-size:11px;}
 }
 @media(min-width:801px){
   .sidebar-toggle{display:none;}
@@ -364,13 +341,11 @@ input[type=range]{width:100%;accent-color:var(--hero);display:block;cursor:point
       <div class="sb-head"><span class="sb-title">Categoria</span><button class="sb-btn" onclick="setCat('tutti')">Tutte</button></div>
       <ul class="cat-list" id="cat-list"></ul>
     </div>
-    <div class="sb-filters-grid">
     <div class="sb-sec"><div class="sb-title">Paese</div><select class="sb-select" id="f-paese" onchange="applyFilters()"><option value="">Tutti i paesi</option></select></div>
     <div class="sb-sec"><div class="sb-title">Regione</div><select class="sb-select" id="f-regione" onchange="applyFilters()"><option value="">Tutte le regioni</option></select></div>
     <div class="sb-sec"><div class="sb-title">Tipologia</div><select class="sb-select" id="f-tipologia" onchange="applyFilters()"><option value="">Tutte le tipologie</option></select></div>
     <div class="sb-sec"><div class="sb-title">Produttore</div><select class="sb-select" id="f-produttore" onchange="applyFilters()"><option value="">Tutti i produttori</option></select></div>
     <div class="sb-sec"><div class="sb-title">Vitigno</div><select class="sb-select" id="f-vitigno" onchange="applyFilters()"><option value="">Tutti i vitigni</option></select></div>
-    </div>
     <div class="sb-sec">
       <div class="sb-head"><span class="sb-title">Prezzo</span><button class="sb-btn" onclick="resetPrezzo()">Reset</button></div>
       <div class="price-row">
@@ -446,6 +421,7 @@ input[type=range]{width:100%;accent-color:var(--hero);display:block;cursor:point
       <button class="abtn" onclick="document.getElementById('imp-file').click()">&#8593; Importa</button>
       <button class="abtn dan" onclick="if(confirm('Reset ai dati originali?'))resetDati()">&#10005; Reset</button>
       <button class="abtn pri" onclick="chiudiAdmin()">&#8592; Chiudi</button>
+      <button class="abtn" onclick="salvaScaricaHTML()" style="background:#2d6a4f;border-color:#2d6a4f;color:#fff;" title="Scarica index.html con dati aggiornati">&#11015; SALVA &amp; SCARICA HTML</button>
     </div>
   </div>
   <input type="file" id="imp-file" accept=".json" onchange="importJSON(event)">
@@ -721,7 +697,7 @@ function updateCatList(){
 }
 
 function setCat(c){fCat=c;applyFilters();}
-function toggleTag(tag){fTag=fTag===tag?null:tag;document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));if(fTag)document.getElementById("tb-"+fTag).classList.add('on');applyFilters();}
+function toggleTag(t){fTag=fTag===t?null:t;document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));if(fTag)document.getElementById("tb-"+fTag).classList.add('on');applyFilters();}
 function updatePrice(){
   var elMin=document.getElementById("price-min");
   var elMax=document.getElementById("price-max");
@@ -755,18 +731,8 @@ function resetPrezzo(){
   pMin=0;pMax=pMaxG;
   updatePriceLabels();updateRangeFill();applyFilters();
 }
-function resetAll(){
-  fCat="tutti";fTag=null;pMin=0;pMax=pMaxG;
-  document.getElementById("price-min").value=0;
-  document.getElementById("price-max").value=pMaxG;
-  updatePriceLabels();updateRangeFill();
-  ["f-paese","f-regione","f-tipologia","f-produttore","f-vitigno"].forEach(id=>document.getElementById(id).value="");
-  document.getElementById("f-ordine").value="default";
-  document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));
-  document.getElementById("search-input").value="";
-  searchQuery="";
-  document.getElementById("search-clear").classList.remove("show");
-  applyFilters();
+function resetAll(){fCat="tutti";fTag=null;pMin=0;pMax=pMaxG;document.getElementById("price-min").value=0;document.getElementById("price-max").value=pMaxG;updatePriceLabels();["f-paese","f-regione","f-tipologia","f-produttore","f-vitigno"].forEach(id=>document.getElementById(id).value="");document.getElementById("f-ordine").value="default";document.querySelectorAll('.tag-btn').forEach(b=>b.classList.remove('on'));
+  clearSearch();
 }
 
 var searchQuery="";
@@ -934,8 +900,13 @@ function cambiaCatColore(i,colore){
 function renderAdmin(){
   let tot=0;Object.values(db).forEach(a=>tot+=a.length);document.getElementById("cnt-vini").textContent=tot;
   const cats=CATS.filter(c=>db[c]&&db[c].length>0);
-  document.getElementById("admin-list").innerHTML=!cats.length?'<p style="color:#666;text-align:center;padding:40px 0;">Nessun vino.</p>':
-    cats.map(c=>`<div class="a-cat"><div class="a-cat-title">${c} (${db[c].length})</div>${db[c].map(v=>`
+  const aq=adminSearchQuery.trim().toLowerCase();
+  const filteredCats=cats.map(c=>{
+    const vini=aq?db[c].filter(v=>[v.n,v.produttore,v.vitigno,v.regione,v.paese,v.tipologia].filter(Boolean).join(' ').toLowerCase().includes(aq)):db[c];
+    return{c,vini};
+  }).filter(x=>x.vini.length>0);
+  document.getElementById("admin-list").innerHTML=!filteredCats.length?'<p style="color:#666;text-align:center;padding:40px 0;">'+(aq?'Nessun risultato per "'+aq+'"':'Nessun vino.')+'</p>':
+    filteredCats.map(({c,vini})=>`<div class="a-cat"><div class="a-cat-title">${c} (${vini.length})</div>${vini.map(v=>`
       <div class="a-row" style="flex-wrap:wrap;">
         <div class="a-row-info" style="min-width:180px;flex:1;">
           <div class="a-row-n">${esc(v.n)}${(v.qty||0)===0?'<span class="qty-badge qty-badge-zero">Esaurito</span>':((v.qty||0)<=2?'<span class="qty-badge qty-badge-low">Ultimi</span>':'')}
@@ -948,16 +919,17 @@ function renderAdmin(){
           ${v.dist?'<div style="font-size:10px;color:#a09060;">'+esc(v.dist)+'</div>':''}
         </div>
         <div class="qty-ctrl">
-          <button class="qty-btn" onclick="cambiaQty('${v.id}','${c}',-1)">&#8722;</button>
-          <span class="qty-val ${(v.qty||0)===0?'qty-zero':(v.qty||0)<=2?'qty-low':'qty-ok'}">${v.qty||0}</span>
-          <button class="qty-btn" onclick="cambiaQty('${v.id}','${c}',1)">&#43;</button>
+          <button class="qty-btn" onclick="cambiaQty('${v.id}','${c}',-1)" title="Rimuovi 1">&#8722;</button>
+          <span class="qty-val ${(v.qty||0)===0?'qty-zero':(v.qty||0)<=2?'qty-low':'qty-ok'}" style="cursor:pointer;" onclick="inputQty('${v.id}','${c}')" title="Clicca per inserire quantità">${v.qty||0}</span>
+          <button class="qty-btn" onclick="cambiaQty('${v.id}','${c}',1)" title="Aggiungi 1">&#43;</button>
+          <button class="qty-btn" onclick="inputQty('${v.id}','${c}')" title="Inserisci quantità" style="font-size:10px;width:auto;padding:0 5px;letter-spacing:0;">±N</button>
         </div>
         <button class="a-edit" onclick="iniziaEdit('${v.id}')">Modifica</button>
         <button class="abtn" onclick="toggleStorico('${v.id}')" style="font-size:9px;padding:3px 8px;letter-spacing:1px;">&#128203; Log</button>
         <button class="a-del" onclick="eliminaVino('${v.id}','${c}')">Elimina</button>
       </div>
       <div class="storico-panel" id="storico-${v.id}">
-        ${(v.storico&&v.storico.length)?v.storico.slice().reverse().map(s=>'<div class="storico-row"><span class="storico-data">'+s.data+'</span><span class="storico-tipo '+s.tipo+'">'+s.tipo+'</span><span class="storico-qty '+(s.delta>0?'pos':'neg')+'">'+(s.delta>0?'+'+s.delta:s.delta)+'</span><span class="storico-note">Giacenza dopo: '+s.qta_dopo+'</span></div>').join(''):'<div class="storico-empty">Nessun movimento registrato</div>'}
+        ${(v.storico&&v.storico.length)?v.storico.slice().reverse().map(s=>'<div class="storico-row"><span class="storico-data">'+s.data+'</span><span class="storico-tipo '+s.tipo+'">'+s.tipo+'</span><span class="storico-qty '+(s.delta>0?'pos':'neg')+'">'+(s.delta>0?'+'+s.delta:s.delta)+'</span><span class="storico-note">'+(s.nota?'📝 '+s.nota+' · ':'')+'Giacenza: '+s.qta_dopo+'</span></div>').join(''):'<div class="storico-empty">Nessun movimento registrato</div>'}
       </div>`).join('')}</div>`).join('');
 }
 
@@ -1012,6 +984,49 @@ function cambiaQty(id,cat,delta){
   }
   saveDB();renderAdmin();
 }
+function inputQty(id,cat){
+  if(!db[cat])return;
+  const v=db[cat].find(x=>x.id===id);
+  if(!v)return;
+  const before=v.qty||0;
+  const input=prompt('📦 ' + esc(v.n) + '\nGiacenza attuale: '+before+'\n\nInserisci la variazione:\n  +12  → aggiungi 12 bottiglie\n  -6   → rimuovi 6 bottiglie\n  8    → imposta a 8 bottiglie');
+  if(input===null)return;
+  const s=input.trim();
+  let newQty;
+  if(s.startsWith('+')){newQty=before+parseInt(s.slice(1),10);}
+  else if(s.startsWith('-')){newQty=before-parseInt(s.slice(1),10);}
+  else{newQty=parseInt(s,10);}
+  if(isNaN(newQty)){toast('Valore non valido',true);return;}
+  newQty=Math.max(0,newQty);
+  const delta=newQty-before;
+  if(delta===0){toast('Nessuna variazione');return;}
+  // chiedi nota opzionale
+  const nota=prompt((delta>0?'📥 Carico +'+delta+' bottiglie':'📤 Scarico '+delta+' bottiglie')+'\n\nNota opzionale (es. "ordine maggio", "sabato sera"):\n(lascia vuoto per saltare)','') ;
+  v.qty=newQty;
+  if(!v.storico)v.storico=[];
+  v.storico.push({data:new Date().toLocaleString('it-IT'),tipo:delta>0?'carico':'scarico',delta:delta,qta_dopo:newQty,nota:nota||''});
+  saveDB();renderAdmin();
+  // riapri automaticamente il log dopo la modifica
+  setTimeout(()=>{const el=document.getElementById('storico-'+id);if(el)el.classList.add('open');},50);
+  toast((delta>0?'Carico +'+delta:' Scarico '+delta)+' → giacenza: '+newQty);
+}
+
+function salvaScaricaHTML(){
+  // Leggi il sorgente originale della pagina
+  var html=document.documentElement.outerHTML;
+  // Sostituisci il VINI_DB_DEFAULT con il db attuale
+  var dbJson=JSON.stringify(db);
+  html=html.replace(/const VINI_DB_DEFAULT\s*=\s*\{[\s\S]*?\};(\s*\n)/, 'const VINI_DB_DEFAULT = '+dbJson+';\n');
+  // Crea e scarica il file
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='index.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('File index.html scaricato ✓');
+}
+
 function toggleStorico(id){
   const el=document.getElementById("storico-"+id);
   if(el)el.classList.toggle("open");
@@ -1040,7 +1055,7 @@ function resetDati(){const d={};Object.keys(VINI_DB_DEFAULT).forEach(cat=>{d[cat
 function exportJSON(){scarica(new Blob([JSON.stringify(db,null,2)],{type:"application/json"}),"carta-vini.json");toast("JSON esportato ✓");}
 function exportCSV(){
   var rows=[["Categoria","Nome","Produttore","Paese","Regione","Vitigno","Tipologia","Annata","Prezzo vendita","Calice","Quantità","Distributore","Prezzo acquisto netto","Tag"]];
-  CATS.forEach(function(c){if(!db[c])return;db[c].forEach(function(v){rows.push([c,v.n||"",v.produttore||"",v.paese||"",v.regione||"",v.vitigno||"",v.tipologia||"",v.annata||"",v.p||"",v.b||"",v.qty!=null?v.qty:"",v.dist||"",v.pnetto||"",(v.t||[]).join("+")]);});});
+  CATS.forEach(function(c){if(!db[c])return;db[c].forEach(function(v){rows.push([c,v.n||"",v.produttore||"",v.paese||"",v.regione||"",v.vitigno||"",v.tipologia||"",v.annata||"",v.p||"",v.b||"",(v.t||[]).join("+")]);});});
   var csv=rows.map(function(r){return r.map(function(x){return '"'+String(x).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
   scarica(new Blob(["\uFEFF"+csv],{type:"text/csv;charset=utf-8;"}),"carta-vini.csv");
   toast("CSV esportato ✓");
@@ -1064,8 +1079,7 @@ function toggleTheme(){
 }
 (function(){
   var t=localStorage.getItem('theme');
-  // Default dark su mobile
-  if(!t){t=window.innerWidth<=800?'dark':'light';}
+  // Default sempre light su tutti i dispositivi
   if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('theme-toggle').textContent='☀️';}
 })();
 
